@@ -2,7 +2,6 @@
 # Configure a new Nginx server so that /redirect_me is redirecting to another page.
 
 sudo apt-get -y update
-sudo apt-get -y upgrade
 sudo apt-get -y install nginx
 sudo service nginx start
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
