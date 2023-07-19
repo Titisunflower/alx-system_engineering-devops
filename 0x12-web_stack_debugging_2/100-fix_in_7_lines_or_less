@@ -1,4 +1,6 @@
-#!/bin/bash
-
-[ -z "$1" ] && echo "Please provide a user argument." && exit 1
-su -c 'whoami' "$1"
+#!/usr/bin/env bash
+# Script for restart nginx running as user nginx on 8080
+chmod 777 /etc/nginx/nginx.conf
+pkill apache2
+sed -i 's/80/8080/g' /etc/nginx/sites-enabled/default
+sudo -u nginx service nginx start
