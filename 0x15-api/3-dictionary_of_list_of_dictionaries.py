@@ -1,37 +1,38 @@
 #!/usr/bin/python3
-'''Reads todo list from api for id passed and turns into json file'''
+"""
+A Python script that, using this REST API, returns
+all information all users' TODO list progress
+and export data in the JSON format.
+"""
 
 import json
 import requests
-import sys
 
-base_url = 'https://jsonplaceholder.typicode.com/'
-
-
-def do_request():
-    '''Performs request'''
-    response = requests.get(base_url + 'users/')
-    if response.status_code != 200:
-        return print('Error: status_code:', response.status_code)
-    users = response.json()
-
-    response = requests.get(base_url + 'todos/')
-    if response.status_code != 200:
-        return print('Error: status_code:', response.status_code)
-    todos = response.json()
-
-    data = {}
-    for user in users:
-        user_todos = [todo for todo in todos
-                      if todo.get('userId') == user.get('id')]
-        user_todos = [{'username': user.get('username'),
-                       'task': todo.get('title'),
-                       'completed': todo.get('completed')}
-                      for todo in user_todos]
-        data[str(user.get('id'))] = user_todos
-
-    with open('todo_all_employees.json', 'w') as file:
-        json.dump(data, file)
 
 if __name__ == '__main__':
-    do_request()
+    url = "https://jsonplaceholder.typicode.com/users"
+
+    response = requests.get(url)
+    users = response.json()
+
+    dic = {}
+    for user in users:
+        userId = user.get('id')
+        uname = user.get('username')
+
+        url = 'https://jsonplaceholder.typicode.com/users/{}'.format(userId)
+        url = url + '/todos/'
+
+        response = requests.get(url)
+        tasks = response.json()
+        dic[userId] = []
+
+        for task in tasks:
+            dic[userId].append({
+                "task": task.get('title'),
+                "completed": task.get('completed'),
+                "username": uname
+            })
+
+    with open('todo_all_employees.json', 'w') as f:
+        json.dump(dic, f)
