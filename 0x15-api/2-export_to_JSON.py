@@ -1,46 +1,34 @@
 #!/usr/bin/python3
-'''Reads todo list from api for id passed and turns into json file'''
+"""
+A Python script that, using this REST API, for a given employee ID,
+returns information about his/her TODO list progress and
+export data in the JSON format.
+"""
 
 import json
 import requests
-import sys
+from sys import argv
 
-base_url = 'https://jsonplaceholder.typicode.com/'
-
-
-def do_request():
-    '''Performs request'''
-
-    if len(sys.argv) < 2:
-        return print('USAGE:', __file__, '<employee id>')
-    eid = sys.argv[1]
-    try:
-        _eid = int(sys.argv[1])
-    except ValueError:
-        return print('Employee id must be an integer')
-
-    response = requests.get(base_url + 'users/' + eid)
-    if response.status_code == 404:
-        return print('User id not found')
-    elif response.status_code != 200:
-        return print('Error: status_code:', response.status_code)
-    user = response.json()
-
-    response = requests.get(base_url + 'todos/')
-    if response.status_code != 200:
-        return print('Error: status_code:', response.status_code)
-    todos = response.json()
-    user_todos = [todo for todo in todos
-                  if todo.get('userId') == user.get('id')]
-    completed = [todo for todo in user_todos if todo.get('completed')]
-
-    user_todos = [{'task': todo.get('title'),
-                   'completed': todo.get('completed'),
-                   'username': user.get('username')}
-                  for todo in user_todos]
-    data = {eid: user_todos}
-    with open(eid + '.json', 'w') as file:
-        json.dump(data, file)
 
 if __name__ == '__main__':
-    do_request()
+    eid = argv[1]
+    userUrl = "https://jsonplaceholder.typicode.com/users"
+    url = userUrl + "/" + eid
+
+    response = requests.get(url)
+    uname = response.json().get('username')
+
+    todoUrl = url + "/todos"
+    response = requests.get(todoUrl)
+    tasks = response.json()
+
+    dic = {eid: []}
+    for task in tasks:
+        dic[eid].append({
+            "task": task.get('title'),
+            "completed": task.get('completed'),
+            "username": uname
+        })
+
+    with open('{}.json'.format(eid), 'w') as f:
+        json.dump(dic, f)
