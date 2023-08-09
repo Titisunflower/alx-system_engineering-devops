@@ -4,6 +4,7 @@
 ## Tasks
 [0. My first postmortem](./README.md)
 
+![pQ9YzVY](https://github.com/Titisunflower/alx-system_engineering-devops/assets/118889805/47d7512f-78fa-4fe6-a067-116da6826dd4)
 
 ### Issue Summary:
 
