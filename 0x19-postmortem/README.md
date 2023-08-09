@@ -55,4 +55,7 @@ To address the issue, the database administrators restructured the problematic q
 <li>Conduct a post-incident review and share findings with the development and operations teams to enhance cross-functional awareness and knowledge sharing.</li>
 </ol>
 
-In summary, the outage stemmed from a query optimization issue in the database, leading to authentication service degradation. Timely detection, collaborative investigation, and effective query optimization strategies were instrumental in restoring service and minimizing user impact. By implementing corrective and preventative measures, we aim to bolster our system's resilience and maintain a seamless user experience.
+In summary, the outage stemmed from a query optimization issue in the database, leading to authentication service degradation. Timely detection, collaborative invest
+igation, and effective query optimization strategies were instrumental in restoring service and minimizing user impact. By implementing corrective and preventative measures, we aim to bolster our system's resilience and maintain a seamless user experience.
+
+![259247144-4881937f-2b1d-4809-9d86-4296739e4ced](https://github.com/Titisunflower/alx-system_engineering-devops/assets/118889805/3355dd3a-2bfa-49bc-95d0-440f0a1a0b33)
