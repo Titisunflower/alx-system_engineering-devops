@@ -1,3 +1,3 @@
-## 0x19. Postmortem
-##### 'DevOps'
-##### 'SysAdmin'
+# 0x19. Postmortem
+##### DevOps
+##### SysAdmin
